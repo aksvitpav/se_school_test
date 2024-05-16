@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\CurrentRateController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test', function (Request $request) {
-    return 111;
-});
+Route::get('/rate', CurrentRateController::class);
