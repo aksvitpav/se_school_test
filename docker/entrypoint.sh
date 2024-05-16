@@ -10,6 +10,7 @@ php artisan optimize:clear --no-interaction
 php artisan storage:link --force --no-interaction
 php artisan migrate --force  --no-interaction
 php artisan db:seed --force --no-interaction
+php artisan app:fetch-currency-rate
 cp -rf /app/public/. /tmp/nginx-public/.
 
 exec "$@"
