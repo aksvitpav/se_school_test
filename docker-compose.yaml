@@ -1,0 +1,80 @@
+version: '3.9'
+
+name: se_school_test
+
+services:
+  db:
+    image: postgres
+    container_name: se_db
+    restart: unless-stopped
+    ports:
+      - "54329:5432"
+    environment:
+      - POSTGRES_HOST=localhost
+      - POSTGRES_DB=${DB_DATABASE:-se_db}
+      - POSTGRES_USER=${DB_USERNAME:-aksonov}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-xda5gzxda5gz}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  redis:
+    image: redis:7-alpine3.19
+    container_name: se_redis
+    restart: always
+    expose:
+      - 63791
+    ports:
+      - "63791:6379"
+    networks:
+      - backend
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: se_app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+
+  nginx:
+    container_name: se_app_nginx
+    image: nginx:alpine
+    ports:
+      - "8000:80"
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - ./docker/nginx/app.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - backend
+
+  mail:
+    image: axllent/mailpit
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: localhost
+      VIRTUAL_PORT: 8025
+
+volumes:
+  db_data:
+
+networks:
+  backend:
+    driver: bridge
