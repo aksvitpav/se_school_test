@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property CurrencyCodeEnum $currency_code
@@ -46,7 +46,7 @@ class CurrencyRate extends Model
             'currency_code' => CurrencyCodeEnum::class,
             'buy_rate' => CurrencyCast::class,
             'sale_rate' => CurrencyCast::class,
-            'fetching_date' => 'datetime',
+            'fetched_at' => 'datetime',
         ];
     }
 }

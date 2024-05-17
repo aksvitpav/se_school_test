@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Adapters\PrivatBankCurrencyRateAdapter;
 use App\Interfaces\Adapters\CurrencyRateAdapterInterface;
 use App\Interfaces\Repositories\CurrencyRateRepositoryInterface;
+use App\Interfaces\Repositories\SubscriberRepositoryInterface;
 use App\Repositories\CurrencyRateRepository;
+use App\Repositories\SubscriberRepository;
 use Illuminate\Support\ServiceProvider;
 
 class BindServiceProvider extends ServiceProvider
@@ -41,5 +43,6 @@ class BindServiceProvider extends ServiceProvider
     private function registerRepositories(): void
     {
         $this->app->bind(CurrencyRateRepositoryInterface::class, CurrencyRateRepository::class);
+        $this->app->bind(SubscriberRepositoryInterface::class, SubscriberRepository::class);
     }
 }

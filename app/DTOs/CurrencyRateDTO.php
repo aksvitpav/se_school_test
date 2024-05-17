@@ -87,6 +87,7 @@ readonly class CurrencyRateDTO
             'buy_rate' => $this->buyRate,
             'sale_rate' => $this->saleRate,
             'fetched_at' => $this->fetchedAt,
+            'id' => $this->id,
         ];
     }
 }
