@@ -48,6 +48,7 @@ services:
     depends_on:
       - redis
       - db
+      - mail
     networks:
       - backend
 
@@ -68,9 +69,11 @@ services:
   mail:
     image: axllent/mailpit
     restart: unless-stopped
-    environment:
-      VIRTUAL_HOST: localhost
-      VIRTUAL_PORT: 8025
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    networks:
+      - backend
 
 volumes:
   db_data:
