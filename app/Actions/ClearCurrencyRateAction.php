@@ -19,7 +19,7 @@ class ClearCurrencyRateAction
      */
     public function execute(): void
     {
-        $olderThan = now()->subMinutes(2);
+        $olderThan = now()->subDays(2);
         $this->currencyRateRepository->clearValuesOlderThan($olderThan);
     }
 }

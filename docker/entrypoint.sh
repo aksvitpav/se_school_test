@@ -6,6 +6,7 @@ if [ "${1#-}" != "$1" ]; then
   set -- php-fpm "$@"
 fi
 
+composer install
 php artisan optimize:clear --no-interaction
 php artisan storage:link --force --no-interaction
 php artisan migrate --force  --no-interaction
