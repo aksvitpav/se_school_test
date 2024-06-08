@@ -98,7 +98,13 @@ interface RepositoryInterface
      * @param array|null $select
      * @return Model|null
      */
-    public function findBy(array $conditions, string $orderBy = 'created_at', bool $orderAsc = true, ?array $with = null, ?array $select = ['*']): ?Model;
+    public function findBy(
+        array $conditions,
+        string $orderBy = 'created_at',
+        bool $orderAsc = true,
+        ?array $with = null,
+        ?array $select = ['*']
+    ): ?Model;
 
     /**
      * @param array $conditions

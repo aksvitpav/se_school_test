@@ -9,7 +9,6 @@ use Illuminate\Support\Carbon;
 
 readonly class CurrencyRateRepository extends AbstractRepository implements CurrencyRateRepositoryInterface
 {
-
     /** @inheritDoc */
     public function getModel(): CurrencyRate
     {

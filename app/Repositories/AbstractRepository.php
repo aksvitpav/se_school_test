@@ -96,8 +96,13 @@ abstract readonly class AbstractRepository implements RepositoryInterface
     }
 
     /** @inheritDoc */
-    public function findBy(array $conditions, string $orderBy = 'created_at', bool $orderAsc = true, ?array $with = null, ?array $select = ['*']): ?Model
-    {
+    public function findBy(
+        array $conditions,
+        string $orderBy = 'created_at',
+        bool $orderAsc = true,
+        ?array $with = null,
+        ?array $select = ['*']
+    ): ?Model {
         $query = $this->getQuery()->select($select)->where($conditions);
 
         if ($with) {
@@ -212,7 +217,7 @@ abstract readonly class AbstractRepository implements RepositoryInterface
     {
         $query = $model->$relationName();
 
-        if (! empty($ids)) {
+        if (!empty($ids)) {
             $query->whereNotIn('id', $ids);
         }
 

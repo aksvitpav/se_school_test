@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
 
 readonly class SubscriberRepository extends AbstractRepository implements SubscriberRepositoryInterface
 {
-
     /** @inheritDoc */
     public function getModel(): Subscriber
     {
