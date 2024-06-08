@@ -26,7 +26,7 @@ readonly class CurrencyRateDTO
      * @param array $data
      * @return CurrencyRateDTO
      */
-    public static function fromArray(array $data): CurrencyRateDto
+    public static function fromArray(array $data): CurrencyRateDTO
     {
         return new CurrencyRateDTO(
             currencyCode: $data['currency_code'],

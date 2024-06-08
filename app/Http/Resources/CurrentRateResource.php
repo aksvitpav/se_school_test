@@ -19,9 +19,9 @@ class CurrentRateResource extends JsonResource
     public $resource;
 
     /**
-     * @var bool
+     * @var null|string
      */
-    public static $wrap = false;
+    public static $wrap = null;
 
     /**
      *  Transform the resource into an array.

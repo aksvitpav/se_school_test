@@ -5,6 +5,7 @@ namespace App\Actions;
 use App\Enums\CurrencyCodeEnum;
 use App\Interfaces\Repositories\CurrencyRateRepositoryInterface;
 use App\Models\CurrencyRate;
+use Illuminate\Database\Eloquent\Model;
 
 class GetCurrentRateAction
 {
@@ -17,9 +18,9 @@ class GetCurrentRateAction
     }
 
     /**
-     * @return CurrencyRate|null
+     * @return CurrencyRate|Model|null
      */
-    public function execute(): ?CurrencyRate
+    public function execute(): Model|CurrencyRate|null
     {
         return $this->currencyRateRepository->findBy(
             [

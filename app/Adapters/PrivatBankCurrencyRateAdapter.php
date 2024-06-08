@@ -3,6 +3,7 @@
 namespace App\Adapters;
 
 use App\Enums\CurrencyCodeEnum;
+use App\Exceptions\CurrencyRateFetchingError;
 use App\Interfaces\Adapters\CurrencyRateAdapterInterface;
 use App\VOs\CurrencyRateVO;
 use GuzzleHttp\Client;
@@ -30,6 +31,11 @@ class PrivatBankCurrencyRateAdapter implements CurrencyRateAdapterInterface
             $response = $this->client->request('GET', $this->baseUrl . $url, $options);
             $data = json_decode($response->getBody()->getContents(), true);
 
+            $USDBuyRate = null;
+            $USDSaleRate = null;
+            $EURBuyRate = null;
+            $EURSaleRate = null;
+
             foreach ($data as $currency) {
                 if ($currency['ccy'] === CurrencyCodeEnum::USD->value) {
                     $USDBuyRate = $currency['buy'];
@@ -41,6 +47,11 @@ class PrivatBankCurrencyRateAdapter implements CurrencyRateAdapterInterface
                     $EURSaleRate = $currency['sale'];
                 }
             }
+
+            throw_if(
+                ! ($USDBuyRate && $USDSaleRate && $EURBuyRate && $EURSaleRate),
+                new CurrencyRateFetchingError('Currency rates not found in response.')
+            );
 
             return new CurrencyRateVO(
                 USDBuyRate: $USDBuyRate,
