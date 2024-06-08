@@ -1,9 +1,10 @@
 {
-    "name": "laravel/laravel",
+    "name": "aksvitpav/se_school_test",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Currency rates API.",
+    "keywords": ["laravel", "currency rate"],
     "license": "MIT",
+    "version": "1.0.1",
     "require": {
         "php": "^8.2",
         "darkaonline/l5-swagger": "^8.6",
