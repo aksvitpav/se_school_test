@@ -8,6 +8,7 @@ use App\Interfaces\Adapters\CurrencyRateAdapterInterface;
 use App\VOs\CurrencyRateVO;
 use GuzzleHttp\Client;
 use Throwable;
+use UnexpectedValueException;
 
 class PrivatBankCurrencyRateAdapter implements CurrencyRateAdapterInterface
 {
@@ -26,7 +27,13 @@ class PrivatBankCurrencyRateAdapter implements CurrencyRateAdapterInterface
      */
     public function __construct(protected Client $client)
     {
-        $this->baseUrl = config('currency_api.privat_bank_api_base_uri');
+        $baseUrl = config('currency_api.privat_bank_api_base_uri');
+        if (!is_string($baseUrl)) {
+            throw new UnexpectedValueException('The base URL must be a string.');
+        }
+
+        $this->baseUrl = $baseUrl;
+
         $this->options = [
             'query' => [
                 'exchange' => 1,
@@ -40,6 +47,7 @@ class PrivatBankCurrencyRateAdapter implements CurrencyRateAdapterInterface
     {
         try {
             $response = $this->client->request('GET', $this->baseUrl, $this->options);
+            /** @var array<array{"ccy":string, "buy":float, "sale":float}> $data */
             $data = json_decode($response->getBody()->getContents(), true);
 
             $USDBuyRate = null;
@@ -60,7 +68,7 @@ class PrivatBankCurrencyRateAdapter implements CurrencyRateAdapterInterface
             }
 
             throw_if(
-                ! ($USDBuyRate && $USDSaleRate && $EURBuyRate && $EURSaleRate),
+                !($USDBuyRate && $USDSaleRate && $EURBuyRate && $EURSaleRate),
                 new CurrencyRateFetchingError('Currency rates not found in response.')
             );
 

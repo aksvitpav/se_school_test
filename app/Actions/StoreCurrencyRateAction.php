@@ -19,9 +19,9 @@ class StoreCurrencyRateAction
 
     /**
      * @param CurrencyRateDTO $dto
-     * @return CurrencyRate|Model
+     * @return Model|CurrencyRate|null
      */
-    public function execute(CurrencyRateDTO $dto): CurrencyRate|Model
+    public function execute(CurrencyRateDTO $dto): Model|CurrencyRate|null
     {
         /** @var CurrencyRate|null $lastRate */
         $lastRate = $this->currencyRateRepository->findBy(

@@ -7,6 +7,7 @@ use App\Actions\StoreSubscriberAction;
 use App\DTOs\SubscriberDTO;
 use App\Http\Requests\SubscribeRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -57,10 +58,12 @@ class SubscribeController extends Controller
         ExistSubscriberAction $existSubscriberAction,
         StoreSubscriberAction $storeSubscriberAction
     ): JsonResponse {
-        $dto = SubscriberDTO::fromArray($request->validated());
+        /** @var array{"email":string, "emailed_at": ?Carbon, "id": ?int} $requestData */
+        $requestData = $request->validated();
+        $dto = SubscriberDTO::fromArray($requestData);
         $isSubscruberExist = $existSubscriberAction->execute($dto);
 
-        if (! $isSubscruberExist) {
+        if (!$isSubscruberExist) {
             $storeSubscriberAction->execute($dto);
             return response()->json(['message' => 'Email successfully added'], Response::HTTP_OK);
         } else {

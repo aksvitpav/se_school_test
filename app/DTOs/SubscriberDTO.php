@@ -19,7 +19,7 @@ readonly class SubscriberDTO
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param array{"email":string, "emailed_at": ?Carbon, "id": ?int} $data
      * @return SubscriberDTO
      */
     public static function fromArray(array $data): SubscriberDTO
@@ -56,7 +56,7 @@ readonly class SubscriberDTO
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array{"email":string, "emailed_at": ?Carbon, "id": ?int}
      */
     public function toArray(): array
     {

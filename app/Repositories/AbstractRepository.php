@@ -127,10 +127,17 @@ abstract readonly class AbstractRepository implements RepositoryInterface
     /** @inheritDoc */
     public function getAll(?array $select = ['*'], ?array $with = [], ?array $where = []): Collection
     {
-        $query = $this
-            ->getQuery()
-            ->with($with)
-            ->where($where)
+        $query = $this->getQuery();
+
+        if (! empty($with)) {
+            $query->with($with);
+        }
+
+        if (! empty($where)) {
+            $query->where($where);
+        }
+
+        $query
             ->select($select);
 
         return $query->get();
@@ -150,7 +157,7 @@ abstract readonly class AbstractRepository implements RepositoryInterface
     public function deleteById(int $id): void
     {
         $model = $this->getQuery()->where('id', $id)->first();
-        $model->delete();
+        $model?->delete();
     }
 
     /** @inheritDoc */

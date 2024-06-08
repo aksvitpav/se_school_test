@@ -23,7 +23,7 @@ readonly class CurrencyRateDTO
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param array{"currency_code":string, "buy_rate": float, "sale_rate": float, "id"?: ?int} $data
      * @return CurrencyRateDTO
      */
     public static function fromArray(array $data): CurrencyRateDTO

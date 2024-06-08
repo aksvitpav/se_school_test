@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property CurrencyCodeEnum $currency_code
- * @property mixed $buy_rate
- * @property mixed $sale_rate
+ * @property float $buy_rate
+ * @property float $sale_rate
  * @property string $fetched_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
