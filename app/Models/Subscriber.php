@@ -30,6 +30,9 @@ class Subscriber extends Model
         'emailed_at',
     ];
 
+    /**
+     * @return string[]
+     */
     protected function casts(): array
     {
         return [

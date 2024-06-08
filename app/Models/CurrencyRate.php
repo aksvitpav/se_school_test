@@ -38,6 +38,9 @@ class CurrencyRate extends Model
         'fetched_at',
     ];
 
+    /**
+     * @return string[]
+     */
     protected function casts(): array
     {
         return [

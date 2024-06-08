@@ -17,18 +17,29 @@ class PrivatBankCurrencyRateAdapter implements CurrencyRateAdapterInterface
     protected string $baseUrl;
 
     /**
+     * @var array<string, array<string, int|string>>
+     */
+    protected array $options;
+
+    /**
      * @param Client $client
      */
     public function __construct(protected Client $client)
     {
         $this->baseUrl = config('currency_api.privat_bank_api_base_uri');
+        $this->options = [
+            'query' => [
+                'exchange' => 1,
+                'coursid' => 5
+            ],
+        ];
     }
 
     /** @inheritDoc */
-    public function getCurrencyRate(string $url, array $options): CurrencyRateVO
+    public function getCurrencyRate(): CurrencyRateVO
     {
         try {
-            $response = $this->client->request('GET', $this->baseUrl . $url, $options);
+            $response = $this->client->request('GET', $this->baseUrl, $this->options);
             $data = json_decode($response->getBody()->getContents(), true);
 
             $USDBuyRate = null;

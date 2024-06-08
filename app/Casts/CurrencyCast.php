@@ -5,6 +5,9 @@ namespace App\Casts;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @implements CastsAttributes<int, float>
+ */
 class CurrencyCast implements CastsAttributes
 {
     /**
@@ -12,7 +15,7 @@ class CurrencyCast implements CastsAttributes
      *
      * @param  array<string, mixed>  $attributes
      */
-    public function get(Model $model, string $key, mixed $value, array $attributes): mixed
+    public function get(Model $model, string $key, mixed $value, array $attributes): int|float
     {
         return $value / 100;
     }
@@ -22,7 +25,7 @@ class CurrencyCast implements CastsAttributes
      *
      * @param  array<string, mixed>  $attributes
      */
-    public function set(Model $model, string $key, mixed $value, array $attributes): mixed
+    public function set(Model $model, string $key, mixed $value, array $attributes): int
     {
         return (int)round($value * 100);
     }

@@ -49,6 +49,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    /**
+     * @return string[]
+     */
     protected function casts(): array
     {
         return [

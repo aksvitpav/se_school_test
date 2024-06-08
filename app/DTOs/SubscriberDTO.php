@@ -19,7 +19,7 @@ readonly class SubscriberDTO
     }
 
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      * @return SubscriberDTO
      */
     public static function fromArray(array $data): SubscriberDTO
@@ -56,7 +56,7 @@ readonly class SubscriberDTO
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

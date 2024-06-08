@@ -23,7 +23,7 @@ readonly class CurrencyRateDTO
     }
 
     /**
-     * @param array $data
+     * @param array<string, mixed> $data
      * @return CurrencyRateDTO
      */
     public static function fromArray(array $data): CurrencyRateDTO
@@ -78,7 +78,7 @@ readonly class CurrencyRateDTO
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

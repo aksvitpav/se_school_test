@@ -23,13 +23,6 @@ class FetchCurrencyRateAction
      */
     public function execute(): CurrencyRateVO
     {
-        $options = [
-            'query' => [
-                'exchange' => 1,
-                'coursid' => 5
-            ],
-        ];
-
-        return $this->apiAdapter->getCurrencyRate('', $options);
+        return $this->apiAdapter->getCurrencyRate();
     }
 }

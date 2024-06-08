@@ -16,7 +16,9 @@ readonly class SubscriberRepository extends AbstractRepository implements Subscr
         return new Subscriber();
     }
 
-    /** @inheritDoc */
+    /**
+     * @return Builder<Subscriber>
+     */
     public function getQuery(): Builder
     {
         return Subscriber::query();
